@@ -1,0 +1,82 @@
+<footer class="bg-gray-900 text-gray-300 py-12 px-6 font-sans">
+  @if(!isLoggedIn) {
+  <div class="max-w-7xl mb- mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+    <div class="space-y-4">
+      <h2 class="text-white text-2xl font-bold tracking-tight">{{ brandInfo.name}}<span class="text-blue-500">.</span>
+      </h2>
+      <p class="text-sm leading-relaxed">
+        {{ brandInfo.description }}
+      </p>
+      <div class="flex space-x-6">
+        @for (link of socialLinks; track link.name) {
+        <a [href]="link.url" class="text-gray-400 hover:text-blue-500 transition-all duration-300 text-2xl">
+          <ng-icon [name]="link.icon"></ng-icon>
+        </a>
+        }
+      </div>
+    </div>
+
+    <div class="space-y-4">
+      <p>Info</p>
+    </div>
+
+    <div class="space-y-4">
+      <h3 class="text-white font-semibold uppercase text-xs tracking-widest">
+        Technical Assistance
+      </h3>
+
+      <p class="text-sm text-gray-400">
+        Describe your issue and we'll get back to you via email.
+      </p>
+
+      <form class="flex flex-col space-y-3">
+        <input #supportEmail type="email" placeholder="Your email address"
+          class="bg-gray-800 border border-gray-700 rounded px-4 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors text-white">
+
+        <textarea #supportDesc placeholder="Describe the issue..." rows="3"
+          class="bg-gray-800 border border-gray-700 rounded px-4 py-2 text-sm focus:outline-none focus:border-blue-500 transition-colors text-white resize-none"></textarea>
+
+        <button type="button" (click)="sendSupportRequest(supportEmail.value, supportDesc.value)"
+          class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium py-2 rounded transition-all active:scale-95">
+          Send Request
+        </button>
+      </form>
+    </div>
+
+  </div>
+  }
+
+  <div
+    class="max-w-7xl mx-auto pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-6">
+
+    <div
+      class="flex flex-wrap justify-center md:justify-start items-center gap-3 text-[10px] sm:text-xs font-medium tracking-wider uppercase text-gray-500">
+      <p>&copy; 2026 {{ brandInfo.name }} Inc.</p>
+
+      <span class="hidden sm:block h-1 w-1 rounded-full bg-gray-700"></span>
+
+      <p class="flex items-center px-2 py-0.5 rounded bg-gray-800/50 border border-gray-700/50 text-gray-400">
+        <span class="mr-1 opacity-40 lowercase">v</span>{{ brandInfo.version }}
+      </p>
+
+      <span class="hidden sm:block h-1 w-1 rounded-full bg-gray-700"></span>
+      <div class="flex items-center space-x-2">
+        <span class="relative flex h-2 w-2">
+          <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+          <span class="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+        </span>
+        <span class="text-[10px] text-gray-400">Production Ready</span>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-6 text-[11px] sm:text-xs">
+      @for (link of footerLinks; track link.label) {
+      <a [href]="link.path" class="text-gray-500 hover:text-blue-400 transition-colors duration-200">
+        {{ link.label }}
+      </a>
+      }
+    </div>
+
+  </div>
+</footer>

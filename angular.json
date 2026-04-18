@@ -5,7 +5,22 @@
   "projects": {
     "client": {
       "projectType": "application",
-      "schematics": {},
+      "schematics": {
+        "schematics": {
+          "@schematics/angular:component": {
+            "flat": false,
+            "type": "component"
+          },
+          "@schematics/angular:service": {
+            "flat": true,
+             "type": "service"
+          },
+          "@schematics/angular:guard": {
+            "flat": true,
+            "type": "guard"
+          }
+        }
+      },
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
@@ -30,6 +45,12 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
@@ -88,5 +109,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

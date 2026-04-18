@@ -1,1 +1,63 @@
 /* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+.loading-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: #4f46e5;
+  z-index: 9999;
+  box-shadow: 0 0 10px #6366f1;
+
+  /* The Secret: Initial state is hidden and 0 width */
+  width: 0%;
+  opacity: 0;
+
+  /* Smoothly transition the exit */
+  transition: width 0.4s ease, opacity 0.4s ease;
+}
+
+/* When Angular rendering starts, this class is added */
+.loading-active {
+  opacity: 1;
+  width: 70%;
+  /* Initial "burst" */
+  animation: youtube-loading 3s linear infinite;
+}
+
+/* When Angular rendering ends, the width hits 100% and it fades out */
+.loading-bar:not(.loading-active) {
+  width: 100%;
+  opacity: 0;
+}
+
+@keyframes youtube-loading {
+  0% {
+    width: 0%;
+  }
+
+  50% {
+    width: 70%;
+  }
+
+  100% {
+    width: 90%;
+  }
+}
+
+@keyframes donutShow {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-in {
+  animation: donutShow 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}

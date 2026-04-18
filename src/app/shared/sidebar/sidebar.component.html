@@ -1,0 +1,117 @@
+<aside class="fixed left-0 top-0 z-40 h-screen w-60 bg-white/95 backdrop-blur-md
+  border-r border-gray-100 shadow-sm transition-transform -translate-x-full md:translate-x-0">
+
+  <div class="flex h-full flex-col">
+
+    <!-- Logo -->
+    <div class="flex items-center h-16 px-6 border-b border-gray-100">
+      <span class="text-xl font-semibold tracking-tight text-gray-900">
+        {{ name }}<span class="text-blue-600">.</span>
+      </span>
+    </div>
+
+    <!-- Menu -->
+    <div class="flex-1 overflow-y-auto px-4 py-6">
+      <ul class="space-y-2 font-medium">
+
+        @for (item of menuItems; track item.title) {
+        <li>
+          <button [routerLink]="item.path" routerLinkActive="bg-blue-50 text-blue-600 shadow-sm"
+            [routerLinkActiveOptions]="{exact: true}" class="flex w-full items-center rounded-xl px-3 py-2.5
+            text-gray-600 hover:bg-gray-50 hover:text-gray-900
+            transition-all duration-200 group">
+
+            <ng-icon [name]="item.icon" size="20" class="text-gray-400 group-hover:text-gray-700 transition-colors">
+            </ng-icon>
+
+            <span class="ml-3 flex-1 text-sm font-medium">
+              {{ item.title }}
+            </span>
+
+            @if (item.badge) {
+            <span class="ml-2 text-xs font-semibold bg-gray-100 text-gray-700 px-2 py-0.5 rounded-full">
+              {{ item.badge }}
+            </span>
+            }
+
+          </button>
+        </li>
+        }
+
+      </ul>
+    </div>
+
+    <!-- Footer -->
+    <div class="border-t border-gray-100 p-4">
+
+      <!-- Settings -->
+      <div class="relative">
+        <button (click)="toggleSettings()" class="flex w-full items-center rounded-xl px-3 py-2.5
+          text-gray-600 hover:bg-gray-50 hover:text-gray-900
+          transition-all group">
+
+          <ng-icon name="heroCog6Tooth" size="20" class="text-gray-400 group-hover:text-gray-700">
+          </ng-icon>
+
+          <span class="ml-3 flex-1 text-left text-sm font-medium">
+            Settings
+          </span>
+
+          <ng-icon name="heroChevronDown" size="14" class="transition-transform duration-200"
+            [class.rotate-180]="isSettingsOpen">
+          </ng-icon>
+
+        </button>
+
+        @if (isSettingsOpen) {
+        <div class="mt-2 ml-6 space-y-1 animate-in slide-in-from-top-2 duration-200">
+
+          @for (sub of settingsItems; track sub.label) {
+          <button [routerLink]="sub.path" class="flex w-full items-center rounded-lg px-3 py-2 text-sm
+            text-gray-500 hover:bg-gray-50 hover:text-indigo-600
+            transition-colors">
+
+            <ng-icon [name]="sub.icon" size="16" class="mr-3 opacity-70">
+            </ng-icon>
+
+            {{ sub.label }}
+
+          </button>
+          }
+
+          <button (click)="logout()" class="flex w-full items-center rounded-lg px-3 py-2 text-sm
+            font-semibold text-red-600 hover:bg-red-50 transition-colors">
+
+            <ng-icon [name]="logoutItem.icon" size="18" class="mr-2">
+            </ng-icon>
+
+            {{ logoutItem.label }}
+
+          </button>
+
+        </div>
+        }
+      </div>
+
+      <!-- User Profile -->
+      <div class="mt-6 flex items-center gap-3 rounded-xl bg-gray-50 p-3">
+
+        <img [src]="avatarUrl" referrerpolicy="no-referrer"
+          class="h-9 w-9 rounded-full object-cover border border-gray-200" [alt]="currentUser?.name">
+
+        <div class="overflow-hidden">
+          <p class="text-sm font-semibold text-gray-900 truncate">
+            {{ currentUser?.name || 'Loading...' }}
+          </p>
+
+          <p class="text-[10px] text-gray-500 uppercase tracking-wider">
+            {{ currentUser ? 'Verified Account' : 'Guest' }}
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+</aside>
