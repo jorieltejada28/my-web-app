@@ -11,7 +11,7 @@ import {
   heroXMark
 } from '@ng-icons/heroicons/outline';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
-import { ApiResponse, UserStats } from '../../interface/dashboard';
+import { ApiResponse, UserStats } from '../../interface/dashboard.interface';
 import { Chart, ChartConfiguration } from 'chart.js';
 import { registerables } from 'chart.js';
 import { LoadingSpinner } from '../../components/loading-spinner/loading-spinner';

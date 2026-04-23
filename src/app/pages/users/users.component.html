@@ -1,3 +1,20 @@
 <app-main>
-  <p>users works!</p>
+  <app-filter-card [title]="'User Management Filters'" [fields]="userFilterConfig" [layout]="userFilterLayout"
+    (onFilter)="onFilterApplied($event)" (onReset)="onFilterReset()">
+  </app-filter-card>
+
+  <div class="p-4">
+    @if (isLoading) {
+    <div class="flex justify-center items-center p-10">
+      <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+      <span class="ml-3 text-gray-500">Searching...</span>
+    </div>
+    }
+    @else {
+    <div class="animate-in fade-in duration-500">
+      <app-table [columns]="userTableCols" [data]="users" [isLoading]="isLoading">
+      </app-table>
+    </div>
+    }
+  </div>
 </app-main>

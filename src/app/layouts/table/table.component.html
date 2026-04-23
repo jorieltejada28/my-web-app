@@ -1,1 +1,65 @@
-<p>table works!</p>
+<div class="overflow-x-auto rounded-xl border border-gray-200 shadow-sm bg-white">
+  <table class="w-full text-sm text-left text-gray-700">
+    <thead class="text-xs uppercase tracking-wider text-gray-500 border-b border-gray-100">
+      <tr>
+        @for (col of columns; track col.key) {
+        <th class="px-6 py-4 font-bold">{{ col.label }}</th>
+        }
+      </tr>
+    </thead>
+
+    <tbody class="divide-y divide-gray-100">
+      @for (row of data; track row.id) {
+      <tr class="hover:bg-blue-50/30 transition-colors">
+        @for (col of columns; track col.key) {
+        <td class="px-6 py-4">
+
+          @switch (col.type) {
+          @case ('avatar') {
+          <div class="flex items-center gap-3">
+            <img [src]="row.avatar" class="w-8 h-8 rounded-full border border-gray-200" alt="avatar">
+            <span class="font-semibold text-gray-900">{{ row[col.key] }}</span>
+          </div>
+          }
+          @case ('badge') {
+          <div class="flex items-center gap-2">
+            <span class="relative flex h-2 w-2">
+              @if (row[col.key] === 'active') {
+              <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              }
+
+              <span [ngClass]="{
+          'bg-green-600': row[col.key] === 'active',
+          'bg-red-600': row[col.key] === 'inactive',
+          'bg-gray-400': row[col.key] !== 'active' && row[col.key] !== 'inactive'
+        }" class="relative inline-flex rounded-full h-2 w-2">
+              </span>
+            </span>
+
+            <span [ngClass]="{
+        'text-green-700': row[col.key] === 'active',
+        'text-red-700': row[col.key] === 'inactive',
+        'text-gray-600': row[col.key] !== 'active' && row[col.key] !== 'inactive'
+      }" class="capitalize font-medium text-sm">
+              {{ row[col.key] }}
+            </span>
+          </div>
+          }
+          @default {
+          <span class="text-gray-600">{{ row[col.key] }}</span>
+          }
+          }
+
+        </td>
+        }
+      </tr>
+      } @empty {
+      <tr>
+        <td [attr.colspan]="columns.length" class="px-6 py-10 text-center text-gray-400">
+          {{ isLoading ? 'Loading data...' : 'No records found.' }}
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
